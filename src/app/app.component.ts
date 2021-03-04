@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,22 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'angular-tour-of-heroes';
+  form: FormGroup = new FormGroup({});
+
+  constructor(
+    private fb: FormBuilder
+  ) {
+    this.form = this.fb.group({
+      mobileNumber: ['', [Validators.required, Validators.pattern("^[6-9][0-9]{9}$")]]
+    })
+  }
+
+  get f() {
+    return this.form.controls;
+  }
+
+  submit() {
+    console.log(this.form.value);
+  }
+
 }
